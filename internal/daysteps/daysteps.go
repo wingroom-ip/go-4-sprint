@@ -31,16 +31,16 @@ func parsePackage(data string) (int, time.Duration, error) {
 	// преобразуем шаги в int
 	steps, err := strconv.Atoi(parseData[0])
 	if err != nil {
-		return 0, 0, fmt.Errorf("ошибка преобразования шагов: %w", err)
+		return 0, 0, errors.New("ошибка преобразования шагов")
 	}
 	// проверяем количество шагов
 	if steps <= 0 {
 		return 0, 0, errors.New("количество шагов должно быть больше 0")
 	}
-	// преобразуем шаги
+	// преобразуем время
 	duration, err := time.ParseDuration(parseData[1])
 	if err != nil {
-		return 0, 0, fmt.Errorf("не удалось преобразовать время: %w", err)
+		return 0, 0, errors.New("не удалось преобразовать время")
 	}
 	if duration <= 0 {
 		return 0, 0, errors.New("время должно быть положительным")
@@ -61,6 +61,13 @@ func DayActionInfo(data string, weight, height float64) string {
 		fmt.Println(err)
 		return ""
 	}
+
+	// проверка веса и роста
+	if weight <= 0 || height <= 0 {
+		fmt.Println("вес и рост должны быть положительными")
+		return ""
+	}
+
 	// вычисляем дистанцию и калории
 	distInKm := (float64(steps) * stepLength) / mInKm
 
