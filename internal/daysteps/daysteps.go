@@ -29,7 +29,7 @@ func parsePackage(data string) (int, time.Duration, error) {
 		return 0, 0, errors.New("недостаточно данных для преобразования")
 	}
 	// преобразуем шаги в int
-	steps, err := strconv.Atoi(strings.TrimSpace(parseData[0]))
+	steps, err := strconv.Atoi(parseData[0])
 	if err != nil {
 		return 0, 0, fmt.Errorf("ошибка преобразования шагов: %w", err)
 	}
@@ -38,7 +38,7 @@ func parsePackage(data string) (int, time.Duration, error) {
 		return 0, 0, errors.New("количество шагов должно быть больше 0")
 	}
 	// преобразуем шаги
-	duration, err := time.ParseDuration(strings.TrimSpace(parseData[1]))
+	duration, err := time.ParseDuration(parseData[1])
 	if err != nil {
 		return 0, 0, fmt.Errorf("не удалось преобразовать время: %w", err)
 	}
