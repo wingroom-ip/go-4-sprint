@@ -26,7 +26,7 @@ func parsePackage(data string) (int, time.Duration, error) {
 
 	// проверяем длину слайса
 	if len(parseData) != 2 {
-		return 0, 0, errors.New("недостаточно данных для преобразования: ")
+		return 0, 0, errors.New("недостаточно данных для преобразования")
 	}
 	// преобразуем шаги в int
 	steps, err := strconv.Atoi(strings.TrimSpace(parseData[0]))
@@ -35,7 +35,7 @@ func parsePackage(data string) (int, time.Duration, error) {
 	}
 	// проверяем количество шагов
 	if steps <= 0 {
-		return 0, 0, errors.New("количество шагов должно быть больше 0: ")
+		return 0, 0, errors.New("количество шагов должно быть больше 0")
 	}
 	// преобразуем шаги
 	duration, err := time.ParseDuration(strings.TrimSpace(parseData[1]))
@@ -58,7 +58,7 @@ func DayActionInfo(data string, weight, height float64) string {
 	// парсим строку на кол-во шагов и время прогулки
 	steps, duration, err := parsePackage(data)
 	if err != nil {
-		fmt.Printf("Ошибка парсинга данных: %v\n", err)
+		fmt.Println(err)
 		return ""
 	}
 	// вычисляем дистанцию и калории
@@ -66,6 +66,7 @@ func DayActionInfo(data string, weight, height float64) string {
 
 	calories, err := spentcalories.WalkingSpentCalories(steps, weight, height, duration)
 	if err != nil {
+		fmt.Println(err)
 		return ""
 	}
 
