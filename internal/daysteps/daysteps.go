@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"spentcalories"
+	"internal/spentcalories"
 )
 
 const (
