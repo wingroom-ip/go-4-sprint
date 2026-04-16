@@ -34,17 +34,17 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 	// затем проверяем их количество
 	steps, err := strconv.Atoi(parseData[0])
 	if err != nil {
-		return 0, parseData[1], 0, errors.New("Не удалось преобразовать кол-во шагов")
+		return 0, "", 0, errors.New("Не удалось преобразовать кол-во шагов")
 	}
 
 	if steps <= 0 {
-		return 0, parseData[1], 0, errors.New("Количество шагов должно быть больше 0")
+		return 0, "", 0, errors.New("Количество шагов должно быть больше 0")
 	}
 
 	// преобразуем строку со временем в time.Duration
 	duration, err := time.ParseDuration(parseData[2])
 	if err != nil {
-		return 0, parseData[1], 0, errors.New("Не удалось получить время")
+		return 0, "", 0, errors.New("Не удалось получить время")
 	}
 
 	return steps, parseData[1], duration, nil
@@ -171,7 +171,7 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 		if err != nil {
 			return "", err
 		}
-		return fmt.Sprintf("Тип тренировки: %s\nДлительность: %v ч.\nДистанция: %.2f км.\nСкорость: %.2f км/ч\nСожгли калорий: %.2f",
+		return fmt.Sprintf("Тип тренировки: %s\nДлительность: %.2f ч.\nДистанция: %.2f км.\nСкорость: %.2f км/ч\nСожгли калорий: %.2f\n",
 			train, duration, dist, mSpeed, calories), nil
 	case "Ходьба":
 		dist := distance(steps, height)
@@ -182,7 +182,7 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 		if err != nil {
 			return "", err
 		}
-		return fmt.Sprintf("Тип тренировки: %s\nДлительность: %v ч.\nДистанция: %.2f км.\nСкорость: %.2f км/ч\nСожгли калорий: %.2f",
+		return fmt.Sprintf("Тип тренировки: %s\nДлительность: %.2f ч.\nДистанция: %.2f км.\nСкорость: %.2f км/ч\nСожгли калорий: %.2f\n",
 			train, duration, dist, mSpeed, calories), nil
 	default:
 		return "", errors.New("неизвестный тип тренировки")
